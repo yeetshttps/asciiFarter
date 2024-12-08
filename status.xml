@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Revision from 12.07.2024-->
+
+<status>
+  <crawlIDs>
+    <!-- Description:
+    Crawl ID: name of a child element from this file, eg; This element, named <crawlIDs>, would also have the crawl ID "crawlIDs"
+
+    Crawl IDs can only be a first child of the root element, <status>. That means a subchild, like the element below, <ID>, 
+    cannot be a crawl ID.
+
+    Below is a list of all available Crawl IDs:
+    -->
+    <ID>crawlIDs</ID>
+    <ID>asciiArts</ID>
+    <ID>asciiArtsNames</ID>
+    <ID>textPastas</ID>
+    <ID>textPastasNames</ID>
+    <ID>latestText</ID>
+    <ID>newestAscii</ID>
+    <ID>fartVer</ID>
+    <ID>fartVerFloat</ID>
+  </crawlIDs>
+
+  <asciiArtCount>9</asciiArtCount>
+    <!--asciiArtCount: count of available ascii arts for asciiFarter to display-->
+
+  <asciiArtsNames>
+    <!-- Description:
+    asciiArtNames: path to each .txt file containing ascii art for asciiFarter. Each filepath is considered a "name", and each 
+    name must be a <name> element.
+    -->
+    <name>asciiArt/amogus.txt</name>
+    <name>asciiArt/discordMod.txt</name>
+    <name>asciiArt/dutch.txt</name>
+    <name>asciiArt/HANK.txt</name>
+    <name>asciiArt/saul.txt</name>
+    <name>asciiArt/skylar.txt</name>
+    <name>asciiArt/waltuh.txt</name>
+    <name>asciiArt/waltuh2.txt</name>
+    <name>asciiArt/zey.txt</name>
+  </asciiArtsNames>
+
+
+  <textPastasCount>2</textPastasCount>
+    <!--textPastasCount: count of available text pastas for asciiFarter-->
+
+  <textPastasNames>
+    <!--textPastasNames: same as <asciiArtNames>, but for text pastas.-->
+    <names>waltSuesGus.txt</names>
+  </textPastasNames>
+
+  <latestText>waltSuesGus.txt</latestText>
+    <!--latestText: the newest text pasta's name-->
+
+  <newestAscii>asciiArt/zey.txt</newestAscii>
+    <!--newestAscii: same as <latestText>, but for ascii art-->
+
+  <fartVer>v1.3-alpha</fartVer>
+    <!--fartVer: latest public version of asciiFarter-->
+
+  <fartVerFloat>1.3</fartVerFloat>
+    <!--fartVerFloat: same as <fartVer>, but just the number-->
+
+  <fartVerFork>yeetshttps/asciiFarter</fartVerFork>
+    <!--fartVerFork: the repository this asciiFarter version is from-->
+
+  <fartVerForkID>a</fartVerForkID>
+    <!-- Description:
+    fartVerForkID: the ID of the <fartVerFork>, usually seen in <fartVer> after the numbers, eg; if the <fartVerForkID> was "a",
+    <fartVer> would be "vX.Xa-alpha" or something similar to that.
+    -->
+
+</status>
