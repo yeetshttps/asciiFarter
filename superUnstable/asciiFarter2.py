@@ -42,12 +42,14 @@ try:
     for key in conf['defaults']:
         if key == 'behavior':
             behavior = str(conf['defaults']['behavior'])
+            shownames = conf['defaults']['shownames']
 except KeyError:
     conf.read(confPathSecondary + confFile)
     try:
         for key in conf['defaults']:
             if key == 'behavior':
                 behavior = str(conf['defaults']['behavior'])
+                shownames = conf['defaults']['shownames']
     except KeyError:
         print("\x1b[31mKeyError: " + confPath + confFile + " or " + confPathSecondary + confFile + " is misconfigured or doesn't exist.\x1b[0m")
         exit(1)
@@ -107,34 +109,94 @@ args = sys.argv[0]
 
 
 def randomArt():
-    url = str("https://yeetssite.github.io/" + random.choice(artsList))
+    randart = random.choice(artsList)
+    url = str("https://yeetssite.github.io/" + randart)
     print("Random ascii art:")
+    if shownames == "True":
+        if "asciiArt/" in randart:
+            print("[47;30m" + randart.replace("asciiArt/", "") + "[0m")
+        else:
+            print("[47;30m" + randart + "[0m")
     for line in urlOpen(url):
         sys.stdout.write(line.decode('UTF-8'))
         sys.stdout.flush()
         time.sleep(0.005)
 
 def newArt():
-    
     url = str("https://yeetssite.github.io/" + newestArt)
     print("Newest ascii art:")
+    if shownames == "True":
+        if "asciiArt/" in newestArt:
+            print("[47;30m" + newestArt.replace("asciiArt/", "") + "[0m")
+        else:
+            print("[47;30m" + newestArt + "[0m")
     for line in urlOpen(url):
+        sys.stdout.write(line.decode('UTF-8'))
+        sys.stdout.flush()
+        time.sleep(0.005)
+
+
+def findArt(art):
+    if ".txt" not in art:
+        art = str(art + ".txt")
+    try:
+        url = urlOpen(str("https://yeetssite.github.io/asciiArt/" + art))
+        art_found_upper = False
+        art_found_lower = False
+    except:
+        og_input = art
+        art = art.replace(".txt","")
+        art_found_upper = False
+        art_found_lower = False
+        try:
+            url = urlOpen(str("https://yeetssite.github.io/asciiArt/" + art.upper() + ".txt"))
+            art_found_upper = True
+            art_found_lower = False
+            art = art.upper() + ".txt"
+        except:
+            try:
+                url = urlOpen(str("https://yeetssite.github.io/asciiArt/" + art.lower() + ".txt"))
+                art_found_lower = True
+                art_found_upper = False
+                art = art.lower() + ".txt"
+            except:
+                class FuckError(ValueError):
+                    pass
+                raise FuckError("[31mCouldn't find what you're looking for\n\n" \
+                        "Basically, all this red stuff means ya fucked up, and I couldn't find any ascii arts named \"" + og_input + "\"\nThis could be for one of the following reasons:\n" + "Miscaps\n" + "- I tried re-searching for your thingy for ALL CAPS and lower case, but if it's got Mixed Caps, I'm screwed.\n" + "Wrong letters\n" + "- idior\n" + "Doesn't exist\n" + "- skitzo idor\n")
+                    
+    if shownames == "True":
+        if art_found_upper:
+            print("Couldn't find \"" + og_input + "\"")
+            sys.stdout.write("Best match: ")
+        elif art_found_lower:
+            print("Couldn't find \"" + og_input + "\".")
+            sys.stdout.write("Best match: ")
+        if "asciiArt/" in art:
+            print(art.replace("asciiArt/", ""))
+        else:
+            print("[47;30m" + art + "[0m")
+    for line in url:
         sys.stdout.write(line.decode('UTF-8'))
         sys.stdout.flush()
         time.sleep(0.005)
 
 def help():
     help = """
-USAGE: asciiFarter2.py [ OPTION ]
+USAGE: asciiFarter2.py [ OPTION ] [ SUB-OPTION ]
 OPTIONs:
     -h, --help:             Bring up this help message
     -r, --randomascii:      Print a random ascii art
     -n, --newestascii:      Print the newest ascii art from 
                             https://yeetssite.github.io/
+    -f, --findart ART:      Find an ascii art named ART
+    -l, --listart:          List the names of available ascii arts*
 
     You can change the "behavior" setting in ~/.config/asciiFarter.ini(or 
     ./asciiFarter.ini) to change what asciiFarter does when run without
     options.
+
+    * Excludes the path "asciiArt/"
         """
     print(help)
 
@@ -145,6 +207,26 @@ def checkArgs(args):
         newArt()
     elif args == '-h' or '-help' in args:
         help()
+    elif args == '-f' or '-findart' in args:
+        try:
+            findee = sys.argv[1]
+            if findee == "-f" or '-findart' in findee:
+                try:
+                    findee = sys.argv[2]
+                    findArt(findee)
+                except IndexError:
+                    print("Error: option '" + args + "' has to find something!")
+            else:
+                findArt(findee)
+        except IndexError:
+            print("You must enter a file to find")
+    elif args == "-l" or "-listart" in args:
+        for item in artsList:
+            if "asciiArt/" in item:
+                item = item.replace("asciiArt/", "")
+            print(item)
+            time.sleep(0.005)
+
     else:
         class OptionError(ValueError):
             pass
