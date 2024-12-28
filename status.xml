@@ -44,6 +44,7 @@
     <name>asciiArt/sigmaSkibidi.txt</name>
     <name>asciiArt/homo.txt</name>
     <name>asciiArt/chill_guy.txt</name>
+    <name>asciiArt/mango.txt</name>
   </asciiArtsNames>
 
 
@@ -58,7 +59,7 @@
   <latestText>waltSuesGus.txt</latestText>
     <!--latestText: the newest text pasta's name-->
 
-  <newestAscii>asciiArt/chill_guy.txt</newestAscii>
+  <newestAscii>asciiArt/mango.txt</newestAscii>
     <!--newestAscii: same as <latestText>, but for ascii art-->
 
   <fartVer>v1.3-alpha</fartVer>

@@ -59,8 +59,8 @@ except KeyError:
 website = 'https://yeetshttps.github.io/asciiFarter/'
 
 # Version stuff
-version = 'v1.4a-alpha'
-versionFloat = 1.4
+version = 2.0
+versionLong =  str('v' + str(version) + '-alpha')
 
 # Interndet stuff:
 
@@ -98,9 +98,10 @@ artsNames = stats.find('asciiArtsNames')
 name = artsNames.find('name')
 
 artsList = listerate(name, artsNames)
+art_count = 0
+for item in artsList:
+    art_count = int(art_count + 1)
 
-artsCount = stats.find('asciiArtCount')
-artsCount = str(artsCount.text)
 
 newestArt = stats.find('newestAscii')
 newestArt = str(newestArt.text)
@@ -163,8 +164,7 @@ def findArt(art):
                 class FuckError(ValueError):
                     pass
                 raise FuckError("[31mCouldn't find what you're looking for\n\n" \
-                        "Basically, all this red stuff means ya fucked up, and I couldn't find any ascii arts named \"" + og_input + "\"\nThis could be for one of the following reasons:\n" + "Miscaps\n" + "- I tried re-searching for your thingy for ALL CAPS and lower case, but if it's got Mixed Caps, I'm screwed.\n" + "Wrong letters\n" + "- idior\n" + "Doesn't exist\n" + "- skitzo idor\n")
-                    
+                        "Basically, all this red stuff means ya fucked up, and I couldn't find any ascii arts named \"" + og_input + "\"\nThis could be for one of the following reasons:\n" + "Miscaps\n" + "- I tried re-searching for your thingy for ALL CAPS and lower case, but if it's got Mixed Caps, I'm screwed.\n" + "Wrong letters\n" + "- idior\n" + "Doesn't exist\n" + "- skitzo idor\n") 
     if shownames == "True":
         if art_found_upper:
             print("Couldn't find \"" + og_input + "\"")
@@ -181,22 +181,64 @@ def findArt(art):
         sys.stdout.flush()
         time.sleep(0.005)
 
+def stats(art=False):
+    if not art:
+        print("[47;30mASCIIFARTER STATISTICS[0m")
+        print("Arts count: " + str(art_count))
+        print("Version: " + versionLong + " Python Edition")
+        print("Config:")
+        print("\tDefault behavior: " + behavior)
+        print("\tShow arts/pastas names: " + shownames)
+        print("\nUse the \"-l\" option to list ascii arts.")
+    else:
+        art = str(art)
+        art_counter = 0
+        art = art.replace(".txt","")
+        art = art.lower()
+        for item in artsList:
+            item_og = item
+            art_counter = art_counter + 1
+            if "asciiArt/" in item:
+                item = item.replace("asciiArt/","")
+            if ".txt" in item:
+                item = item.replace(".txt","")
+            if item.strip() == str(art.strip()):
+                found_art = True
+                break
+            else:
+                item = item.lower()
+                if item.strip() == art.strip():
+                    found_art = True
+                    break
+                else:
+                    found_art = False
+                
+        if found_art:
+            print("Yes")
+        else:
+            print("no")
+
 def help():
     help = """
 USAGE: asciiFarter2.py [ OPTION ] [ SUB-OPTION ]
 OPTIONs:
-    -h, --help:             Bring up this help message
-    -r, --randomascii:      Print a random ascii art
+    -h, --help:             Bring up this help message.
+    -r, --randomascii:      Print a random ascii art.
     -n, --newestascii:      Print the newest ascii art from 
-                            https://yeetssite.github.io/
-    -f, --findart ART:      Find an ascii art named ART
-    -l, --listart:          List the names of available ascii arts*
+                            <https://yeetssite.github.io/>.
+    -f, --findart [ART]:    Find an ascii art named [ART].** 
+    -l, --listart:          List the names of available ascii arts.*
+    -s, --stats [ART]:      Show stats for the [ART] provided, or shows
+                            stats about asciiFarter if no [ART] provided.
+
 
     You can change the "behavior" setting in ~/.config/asciiFarter.ini(or 
     ./asciiFarter.ini) to change what asciiFarter does when run without
     options.
 
-    * Excludes the path "asciiArt/"
+    * Excludes the path "asciiArt/".
+
+    ** Option required.
         """
     print(help)
 
@@ -226,6 +268,14 @@ def checkArgs(args):
                 item = item.replace("asciiArt/", "")
             print(item)
             time.sleep(0.005)
+    elif args == "-s" or "--stats" in args:
+        try:
+            art_stats = sys.argv[1]
+            if art_stats == args:
+                art_stats = sys.argv[2]
+                stats(art=art_stats)
+        except IndexError:
+            stats()
 
     else:
         class OptionError(ValueError):
