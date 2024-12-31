@@ -263,11 +263,15 @@ def checkArgs(args):
         except IndexError:
             print("You must enter a file to find")
     elif args == "-l" or "-listart" in args:
+        art_counter = 0
         for item in artsList:
+            art_counter = art_counter + 1
             if "asciiArt/" in item:
                 item = item.replace("asciiArt/", "")
-            print(item)
+            print(str(art_counter) + ". " + item)
             time.sleep(0.005)
+        
+        print("\nArt count: [1m" + str(art_counter) + "[0m")
     elif args == "-s" or "--stats" in args:
         try:
             art_stats = sys.argv[1]
