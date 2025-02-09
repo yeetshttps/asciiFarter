@@ -18,6 +18,17 @@ import yeettools
 
 # Set up variables:
 
+art_genres = ["breaking bad", "red dead redemption", "idfk", "nsfw"]
+art_keywords = {
+        "skylar": art_genres[0],
+        "waltuh": art_genres[0],
+        "hank": art_genres[0],
+        "dutch": art_genres[1],
+        "mango": art_genres[1],
+        "zey": art_genres[3]
+        }
+
+
 # Get configuration settings
 confPath = os.environ['HOME'] + '/.config/'
 confPathSecondary = "./"
@@ -214,13 +225,21 @@ def stats(art=False):
                     found_art = False
                 
         if found_art:
-            print("Yes")
+            print(art.upper() + " STATISTICS")
+            print("Art count:\t" + str(art_counter))
         else:
-            print("no")
+            def ArtError(i="couldn't find the ascii art you were looking for"): # i = input
+                print("[31mArtError: " + i + "[0m")
+                sys.exit(1)
+            return ArtError()
+
+def version():
+    print("asciiFarter " + versionLong)
+
 
 def help():
     help = """
-USAGE: asciiFarter2.py [ OPTION ] [ SUB-OPTION ]
+USAGE: asciiFarter2.py [ OPTION ]
 OPTIONs:
     -h, --help:             Bring up this help message.
     -r, --randomascii:      Print a random ascii art.
@@ -247,6 +266,8 @@ def checkArgs(args):
         randomArt()
     elif args == '-n' or '-newestascii' in args:
         newArt()
+    elif args == '-v' or '-version' in args:
+        version()
     elif args == '-h' or '-help' in args:
         help()
     elif args == '-f' or '-findart' in args:
