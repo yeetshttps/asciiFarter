@@ -1,5 +1,5 @@
 # Fartlib for AsciiFarter
-#### Version 1.0
+#### Version 1.1
 Fartlib is a Python module designed specifically for AsciiFarter. It includes all the basic functions such as getting and printing ascii arts, and allows for less headache-inducing development.
 
 Fartlib is designed to allow easy integration of AsciiFarter's features to any Python 3 based scripts/programs.
