@@ -3,16 +3,37 @@ import bs4 # to parse xml - EXTERNAL (pip3)
 import random # Random item selection
 from time import sleep # for stdout animation work
 from sys import stdout # to work with stdout
+from sys import exit # ensure exit() actually exits
+from urllib import error # deal with url errors
+
 art_list = [] # Initiate art_list and newest_art here because python is gay and is obsessed with local object errors
 new_art = ''
+error_opener = str("[31m"+str(__file__)+": Error:")
 # Open status.xml and add some of it's contents to the art_list
-with request.urlopen("https://yeetshttps.github.io/asciiFarter/status.xml") as status_file:
-    status_text = status_file.read().decode('utf-8')
-    status = bs4.BeautifulSoup(status_text, 'xml')
-    art_names = status.find('asciiArtsNames')
-    for name in art_names.find_all('name'):
-        art_list.append(name.text)
-    new_art = status.find('newestAscii').text
+try:
+    with request.urlopen("https://yeetshttps.github.io/asciiFarter/status.xml") as status_file:
+        status_text = status_file.read().decode('utf-8')
+        status = bs4.BeautifulSoup(status_text, 'xml')
+        art_names = status.find('asciiArtsNames')
+        for name in art_names.find_all('name'):
+            art_list.append(name.text)
+        new_art = status.find('newestAscii').text
+except error.URLError: # Check for internet if connection failed
+    try:               # Check if the service provider (github) is up
+        with request.urlopen("https://github.com") as ghservercheck:
+            print(error_opener)
+            print("There was an error connecting to our website: https status code "+str(status_file.code))
+            print("[A[m")
+    except error.URLError:
+        try:           # Check another source to see if its an internet connection problem
+            with request.urlopen("https://google.com") as gservercheck:
+                print(error_opener)
+                print("It seems that our service provider may be down. Check back again in a little while.")
+                print("[A[m")
+        except error.URLError: # If there was an error connecting to the last source its probably internet-related
+            print(error_opener)
+            print("It seems that there was a problem connecting to the internet, please check your device's internet connection.")
+            print("[A[m")
 
 # CLASSES
 # Get a random art from the art_list:
@@ -27,7 +48,8 @@ class random_art:
         for line in self.text: # iterate art text line-by-line
             stdout.write(line) # write(print) the line to stdout (print adds extra newlines)
             sleep(line_delay)  # sleep for a fraction of a second between every line
-        stdout.flush()         # flush stdout after art is pooped.
+            stdout.flush()     # no poop left unflushed
+            sleep(line_delay)
 
 # Functionally the same as random_art() but uses new_art instead of a random choice from the art_list:
 class newest_art: 
@@ -41,4 +63,5 @@ class newest_art:
         for line in self.text:
             stdout.write(line)
             sleep(line_delay)
-        stdout.flush()
+            stdout.flush()
+            sleep(line_delay)
