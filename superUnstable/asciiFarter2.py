@@ -4,11 +4,11 @@ from sys import argv
 from sys import exit
 from urllib import error
 # VERSION - used for updates and versioning(duh)
-version = 2.0
+version = 2.1
 # HELP TEXT - displayed when 'help' command is used
 help_text="""AsciiFarter - Help
-usage: asciifarter COMMAND [--FLAG]
-       asciifarter [--FLAG]
+usage: asciifarter COMMAND [--FLAGS]
+       asciifarter [--FLAGS]
 
 COMMANDS:
 Commands change what AsciiFarter outputs, for example,
@@ -25,6 +25,8 @@ VALID COMMANDS ARE:
                         and then exits.
     random, r:          Shows a random Ascii Art.
     newest, n:          Shows the newest Ascii Art.
+    find, f [ART]:      Find and show the Ascii Art named [ART]
+    list, l:            Lists all of AsciiFarter's Arts by name
 
 FLAGS:
 Flags change how AsciiFarter outputs, for example,
@@ -44,7 +46,7 @@ try:
         print(help_text)
         exit(0)
     elif argv[1] == 'version' or argv[1] == 'v':
-        print(str('AsciiFarter v'+str(version)+'\nCopyright (C) 2026 Jacob Haché (mangolover1899).'))
+        print(str('AsciiFarter v'+str(version)+'\nCopyright (C) 2024-2026 Jacob Haché (mangolover1899).'))
         exit(0)
     elif argv[1] == 'random' or argv[1] == 'r':
         fart = getfart.random_art()
@@ -52,6 +54,18 @@ try:
     elif argv[1] == 'newest' or argv[1] == 'n':
         fart = getfart.newest_art()
         fart.poop()
+    elif argv[1] == 'find' or argv[1] == 'f':
+        try:
+            fart = getfart.find_art(argv[2])
+            fart.poop()
+        except IndexError:
+            print('You have to tell me which art to find idior')
+        except getfart.find_art.SearchError as err:
+            print("Couldn't show <"+argv[2]+">: "+str(err))
+        except AttributeError:
+            exit(2)
+    elif argv[1] == 'list' or argv[1] == 'l':
+        getfart.list_art()
     elif argv[1]:
         print('[1;37;41mAsciiFarter: "'+argv[1]+'" is not a valid command or flag.[m')
         fart = getfart.random_art()

@@ -38,8 +38,9 @@ except error.URLError: # Check for internet if connection failed
 # CLASSES
 # Get a random art from the art_list:
 class random_art:
-    def __init__(self):
-        self.name = random.choice(art_list) # choose a random art's filename from the art_list
+    def __init__(self, randomness=len(art_list)):
+        for x in range(randomness):
+            self.name = random.choice(art_list) # choose a random art's filename from the art_list
         with request.urlopen('https://yeetssite.github.io/'+self.name) as art_file: # open that random art's url
             self.File = art_file # save the file-like object as an attribute
             self.text = art_file.read().decode('utf-8') # convert the file-like object into a string
@@ -65,3 +66,48 @@ class newest_art:
             sleep(line_delay)
             stdout.flush()
             sleep(line_delay)
+
+# search specific art by name
+class find_art:
+    class SearchError(ValueError):
+        pass
+    def __init__(self, art=None):
+        self.found = False
+        if art: # check against the art list to see if the search item exists or not
+            self.search = art.lower()
+            for art_name in art_list:
+                if self.search.replace('.txt','') == art_name.lower().replace('asciiart/', '').replace('.txt', ''):
+                    self.name = art_name
+                    self.found = True
+                    break
+        else:
+            print(error_opener)
+            raise self.SearchError('No art to look for[m')
+
+        if self.found:
+            try:
+                with request.urlopen('https://yeetssite.github.io/'+self.name) as art_file:
+                    self.File = art_file
+                    self.text = art_file.read().decode('utf-8')
+            except error.URLError:
+                print(error_opener)
+                raise self.SearchError("Couldn't open the art from <https://yeetssite.github.io/"+self.name+">, maybe it doesn't exist?")
+        elif not self.found:
+            print('[1;34m(i) [30mfind_art: art [37m"'+self.search+'"[30m not found.[m')
+    def poop(self, line_delay=0.000001):
+        for line in self.text:
+            stdout.write(line)
+            sleep(line_delay)
+            stdout.flush()
+            sleep(line_delay)
+
+class list_art:
+    def __init__(self, line_delay=0.000001):
+        self.count = 0
+        for name in art_list:
+            self.count += 1
+            print(str(self.count)+'. '+name.lower().replace('asciiart/', ''))
+            sleep(line_delay)
+        print("Total amount of ascii arts: "+str(self.count))
+        sleep(line_delay)
+
