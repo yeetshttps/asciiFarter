@@ -5,7 +5,7 @@ from sys import argv
 from sys import exit
 from urllib import error
 # VERSION - used for updates and versioning(duh)
-version = 2.1
+version = 2.2
 # HELP TEXT - displayed when 'help' command is used
 help_text="""AsciiFarter - Help
 usage: asciifarter COMMAND [--FLAGS]
@@ -80,6 +80,12 @@ except IndexError:
     except IndexError:
         print("[1;37;41m* AsciiFarter needs internet to run. *[m")
         exit(1)
+    except AttributeError:
+        print("[1;37;41m* AsciiFarter needs internet to run. *[m")
+        exit(1)
+except AttributeError:
+    print("[1;37;41m* AsciiFarter needs internet to run. *[m")
+    exit(1)
 except error.URLError:
     print("[1;37;41m* AsciiFarter needs internet to run. *[m")
     exit(1)
