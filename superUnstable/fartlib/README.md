@@ -7,6 +7,7 @@ Fartlib is designed to allow easy integration of AsciiFarter's features to any P
 ## Getting fartlib set up
 Fartlib needs the following modules to work:
 `bs4` - [BeatifulSoup](https://pypi.org/project/beautifulsoup4/) is a library for parsing XML and HTML.
+
 `lxml` - [lxml](https://pypi.org/project/lxml/) binds XML related libraries to python and gives `bs4` better XML parsing functionality.
 
 installing these modules should be as simple as running:
