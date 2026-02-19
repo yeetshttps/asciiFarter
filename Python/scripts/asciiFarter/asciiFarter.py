@@ -34,13 +34,14 @@ version = "v1.3-alphadev"
 versionFloat = 1.3
 
 # Prints when --help or -h option is passed
-help = "asciiFarter: help\n\n" + \
-        "Usage: asciiFarter.py [ OPTIONS ]\n" + \
-        "Running without options shows the latest Ascii Art\n\n" + \
-        "    -v, --version:     show version info\n" + \
-        "    -u, --update:      check for updates\n" + \
-        "    -h, --help:        show this text\n" + \
-        "    -r, --random:      show a random Ascii Art."
+help = """asciiFarter: help\n
+    Usage: asciiFarter.py [ OPTIONS ]
+    Running without options shows the latest Ascii Art\n
+        "    -v, --version:     show version info.
+        "    -u, --update:      check for updates.
+        "    -h, --help:        show this text.
+        "    -r, --random:      show a random Ascii Art.
+        -    -t, --textpasta    show a textpasta"""
 
 # Warn if versionFloat variable says a different version than the version variable, because it will lead to
 # catastrophic misinformation spreading if I fuck up and release a version with a different version float.
