@@ -1,6 +1,6 @@
 # fartlib reference
 This document outlines all the functions, objects and classes included in `fartlib`.
-Innaccurate information? Make an [issue on GitHub](https://github.com/yeetshttps/issues).
+Innaccurate information? Make an [issue on GitHub](https://github.com/yeetshttps/asciiFarter/issues).
 
 ---
 
