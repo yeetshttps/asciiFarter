@@ -1,5 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/python
 from fartlib import getfart
+import fartlib
 from sys import argv
 from sys import exit
 from urllib import error
@@ -46,7 +47,8 @@ try:
         print(help_text)
         exit(0)
     elif argv[1] == 'version' or argv[1] == 'v':
-        print(str('AsciiFarter v'+str(version)+'\nCopyright (C) 2024-2026 Jacob Haché (mangolover1899).'))
+        print(str('AsciiFarter v'+str(version)+' running with FartLib v'+str(fartlib.version)))
+        print('Copyright (C) 2024-2026 Jacob Haché (mangolover1899).')
         exit(0)
     elif argv[1] == 'random' or argv[1] == 'r':
         fart = getfart.random_art()
