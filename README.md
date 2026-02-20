@@ -11,7 +11,7 @@ Licensed under GPL-3.0.
 
 - Plans to use XML instead of HTML
 - Undid some broken features
-- In the future, *this* will be the main development fork
+- ~~In the future, *this* will be the main development fork~~ (ha lol no)
 
 ### Links and resources:
 
